@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupons Management - Heritage Handlooms Admin</title>
+    <meta name="description" content="Create and manage discount coupons, promotional codes, and special offers for Heritage Handlooms customers.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-nav">
+            <div class="admin-logo">
+                <h2>Heritage Handlooms</h2>
+                <span>Coupons Management</span>
+            </div>
+            <div class="admin-actions">
+                <div class="admin-search">
+                    <input type="text" placeholder="Search coupons..." id="adminSearch">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="admin-notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </div>
+                <div class="admin-user">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="user-info">
+                        <span>Admin User</span>
+                        <small>Administrator</small>
+                    </div>
+                    <button class="logout-btn" onclick="adminLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-menu">
+                <a href="admin.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin-products.html" class="menu-item">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="admin-orders.html" class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="admin-customers.html" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="admin-categories.html" class="menu-item">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </a>
+                <a href="admin-inventory.html" class="menu-item">
+                    <i class="fas fa-warehouse"></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="admin-coupons.html" class="menu-item active">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Coupons</span>
+                </a>
+                <a href="admin.html#analytics" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="admin.html#settings" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Coupons Management -->
+            <div class="admin-content active">
+                <div class="content-header">
+                    <h1>Coupons Management</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" onclick="exportCoupons()">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn btn-outline" onclick="showBulkCouponModal()">
+                            <i class="fas fa-upload"></i> Bulk Create
+                        </button>
+                        <button class="btn btn-outline" onclick="generateCouponReport()">
+                            <i class="fas fa-chart-line"></i> Usage Report
+                        </button>
+                        <button class="btn btn-primary" onclick="showAddCouponModal()">
+                            <i class="fas fa-plus"></i> Create Coupon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coupon Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #28a745;">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalCoupons">0</h3>
+                            <p>Total Coupons</p>
+                            <span class="stat-change positive">+15.2%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #17a2b8;">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="activeCoupons">0</h3>
+                            <p>Active Coupons</p>
+                            <span class="stat-change positive">+8.7%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #ffc107;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="couponUsage">0</h3>
+                            <p>Total Usage</p>
+                            <span class="stat-change positive">+23.4%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #dc3545;">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalSavings">₹0</h3>
+                            <p>Total Savings</p>
+                            <span class="stat-change positive">+18.9%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="action-card" onclick="createWelcomeCoupon()">
+                        <i class="fas fa-gift"></i>
+                        <div>
+                            <h4>Welcome Coupon</h4>
+                            <p>For new customers</p>
+                        </div>
+                    </div>
+                    <div class="action-card" onclick="createSeasonalCoupon()">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <h4>Seasonal Offer</h4>
+                            <p>Festival discounts</p>
+                        </div>
+                    </div>
+                    <div class="action-card" onclick="createBulkOrderCoupon()">
+                        <i class="fas fa-boxes"></i>
+                        <div>
+                            <h4>Bulk Order</h4>
+                            <p>Volume discounts</p>
+                        </div>
+                    </div>
+                    <div class="action-card" onclick="createLoyaltyCoupon()">
+                        <i class="fas fa-crown"></i>
+                        <div>
+                            <h4>Loyalty Reward</h4>
+                            <p>VIP customers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters and Search -->
+                <div class="table-filters">
+                    <div class="filter-group">
+                        <input type="text" placeholder="Search by coupon code, name..." id="couponSearch">
+                        <select id="couponStatusFilter">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="expired">Expired</option>
+                            <option value="used-up">Used Up</option>
+                        </select>
+                        <select id="couponTypeFilter">
+                            <option value="">All Types</option>
+                            <option value="percentage">Percentage</option>
+                            <option value="fixed">Fixed Amount</option>
+                            <option value="free-shipping">Free Shipping</option>
+                            <option value="bogo">Buy One Get One</option>
+                        </select>
+                        <select id="couponCategoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="welcome">Welcome</option>
+                            <option value="seasonal">Seasonal</option>
+                            <option value="loyalty">Loyalty</option>
+                            <option value="bulk">Bulk Order</option>
+                            <option value="clearance">Clearance</option>
+                        </select>
+                        <button class="btn btn-outline" onclick="clearCouponFilters()">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coupons Table -->
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">
+                            <h3>Coupons List</h3>
+                            <span id="couponCount">0 coupons</span>
+                        </div>
+                        <div class="table-controls">
+                            <select id="bulkCouponAction">
+                                <option value="">Bulk Actions</option>
+                                <option value="activate">Activate</option>
+                                <option value="deactivate">Deactivate</option>
+                                <option value="delete">Delete</option>
+                                <option value="duplicate">Duplicate</option>
+                                <option value="export-selected">Export Selected</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm" onclick="applyBulkCouponAction()">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <table id="couponsTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAllCoupons" onchange="toggleSelectAllCoupons()">
+                                </th>
+                                <th onclick="sortCouponsTable('code')">
+                                    Coupon Code <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortCouponsTable('name')">
+                                    Name <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortCouponsTable('type')">
+                                    Type <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortCouponsTable('discount')">
+                                    Discount <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortCouponsTable('usage')">
+                                    Usage <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortCouponsTable('validFrom')">
+                                    Valid From <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortCouponsTable('validTo')">
+                                    Valid To <i class="fas fa-sort"></i>
+                                </th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="couponsTableBody">
+                            <!-- Coupons will be loaded here -->
+                        </tbody>
+                    </table>
+                    
+                    <!-- Pagination -->
+                    <div class="table-pagination">
+                        <div class="pagination-info">
+                            Showing <span id="couponsShowingStart">0</span> to <span id="couponsShowingEnd">0</span> of <span id="couponsTotalEntries">0</span> entries
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="btn btn-outline btn-sm" onclick="previousCouponsPage()" id="couponsPrevBtn">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="page-numbers" id="couponsPageNumbers">
+                                <!-- Page numbers will be generated here -->
+                            </div>
+                            <button class="btn btn-outline btn-sm" onclick="nextCouponsPage()" id="couponsNextBtn">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Coupon Modal -->
+    <div class="modal" id="addCouponModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Create New Coupon</h3>
+                <button class="modal-close" onclick="closeAddCouponModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addCouponForm">
+                    <div class="form-tabs">
+                        <button type="button" class="tab-btn active" onclick="switchCouponTab('basic')">Basic Info</button>
+                        <button type="button" class="tab-btn" onclick="switchCouponTab('conditions')">Conditions</button>
+                        <button type="button" class="tab-btn" onclick="switchCouponTab('restrictions')">Restrictions</button>
+                    </div>
+                    
+                    <!-- Basic Info Tab -->
+                    <div class="tab-content active" id="basicTab">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Coupon Code *</label>
+                                <div class="code-input-group">
+                                    <input type="text" name="code" required placeholder="WELCOME10" id="couponCodeInput">
+                                    <button type="button" class="btn btn-outline btn-sm" onclick="generateCouponCode()">
+                                        <i class="fas fa-random"></i> Generate
+                                    </button>
+                                </div>
+                                <small>Use uppercase letters and numbers only</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Coupon Name *</label>
+                                <input type="text" name="name" required placeholder="Welcome Discount">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" rows="3" placeholder="Describe this coupon offer"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Discount Type *</label>
+                                <select name="discountType" required onchange="toggleDiscountFields()">
+                                    <option value="">Select Type</option>
+                                    <option value="percentage">Percentage Discount</option>
+                                    <option value="fixed">Fixed Amount</option>
+                                    <option value="free-shipping">Free Shipping</option>
+                                    <option value="bogo">Buy One Get One</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="discountValueGroup">
+                                <label id="discountValueLabel">Discount Value *</label>
+                                <input type="number" name="discountValue" step="0.01" min="0" placeholder="10">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Valid From *</label>
+                                <input type="datetime-local" name="validFrom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Valid To *</label>
+                                <input type="datetime-local" name="validTo" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Usage Limit</label>
+                                <input type="number" name="usageLimit" min="1" placeholder="100">
+                                <small>Leave empty for unlimited usage</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Usage Limit Per Customer</label>
+                                <input type="number" name="usageLimitPerCustomer" min="1" placeholder="1">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Conditions Tab -->
+                    <div class="tab-content" id="conditionsTab">
+                        <div class="form-group">
+                            <label>Minimum Order Amount (₹)</label>
+                            <input type="number" name="minOrderAmount" step="0.01" min="0" placeholder="999">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Maximum Discount Amount (₹)</label>
+                            <input type="number" name="maxDiscountAmount" step="0.01" min="0" placeholder="500">
+                            <small>Only for percentage discounts</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Applicable Categories</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="categories" value="bedsheets">
+                                    <span>Bed Sheets & Covers</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="categories" value="pillows">
+                                    <span>Pillow & Cushion Covers</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="categories" value="curtains">
+                                    <span>Curtains & Drapes</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="categories" value="rugs">
+                                    <span>Rugs & Carpets</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="categories" value="table">
+                                    <span>Table Runners & Cloths</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="categories" value="throws">
+                                    <span>Sofa Throws</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="categories" value="quilts">
+                                    <span>Quilts & Dohars</span>
+                                </label>
+                            </div>
+                            <small>Leave unchecked to apply to all categories</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Applicable Products</label>
+                            <select name="applicableProducts" multiple>
+                                <!-- Products will be loaded here -->
+                            </select>
+                            <small>Leave empty to apply to all products</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Restrictions Tab -->
+                    <div class="tab-content" id="restrictionsTab">
+                        <div class="form-group">
+                            <label>Customer Groups</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="customerGroups" value="new">
+                                    <span>New Customers</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="customerGroups" value="returning">
+                                    <span>Returning Customers</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="customerGroups" value="vip">
+                                    <span>VIP Customers</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="customerGroups" value="wholesale">
+                                    <span>Wholesale Customers</span>
+                                </label>
+                            </div>
+                            <small>Leave unchecked to apply to all customers</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Specific Customers</label>
+                            <input type="text" name="specificCustomers" placeholder="Enter email addresses separated by commas">
+                            <small>Restrict to specific customer email addresses</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" name="firstOrderOnly">
+                                <span>First Order Only</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" name="excludeSaleItems">
+                                <span>Exclude Sale Items</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" name="combineWithOtherOffers">
+                                <span>Can Combine with Other Offers</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" name="isActive" checked>
+                                <span>Active</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeAddCouponModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Coupon</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Coupon Modal -->
+    <div class="modal" id="editCouponModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Edit Coupon</h3>
+                <button class="modal-close" onclick="closeEditCouponModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Similar form structure as add coupon but with edit functionality -->
+                <div id="editCouponContent">
+                    <!-- Edit form will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coupon Details Modal -->
+    <div class="modal" id="couponDetailsModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Coupon Details</h3>
+                <button class="modal-close" onclick="closeCouponDetailsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="coupon-details-content" id="couponDetailsContent">
+                    <!-- Coupon details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Create Coupons Modal -->
+    <div class="modal" id="bulkCouponModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bulk Create Coupons</h3>
+                <button class="modal-close" onclick="closeBulkCouponModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="bulkCouponForm">
+                    <div class="form-group">
+                        <label>Coupon Prefix *</label>
+                        <input type="text" name="prefix" required placeholder="BULK" maxlength="10">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Number of Coupons *</label>
+                            <input type="number" name="quantity" required min="1" max="1000" placeholder="50">
+                        </div>
+                        <div class="form-group">
+                            <label>Code Length</label>
+                            <input type="number" name="codeLength" min="4" max="20" value="8">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Discount Type *</label>
+                            <select name="discountType" required>
+                                <option value="percentage">Percentage</option>
+                                <option value="fixed">Fixed Amount</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Discount Value *</label>
+                            <input type="number" name="discountValue" required step="0.01" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Valid From *</label>
+                            <input type="datetime-local" name="validFrom" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Valid To *</label>
+                            <input type="datetime-local" name="validTo" required>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeBulkCouponModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Coupons</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/admin-coupons.js"></script>
+</body>
+</html>

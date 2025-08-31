@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Heritage Handlooms</title>
+    <meta name="description" content="Manage your Heritage Handlooms account, view orders, update profile, and manage your wishlist.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                        <span><i class="fas fa-envelope"></i> info@heritagehandlooms.com</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <h1>Heritage Handlooms</h1>
+                        <span>Authentic Indian Textiles</span>
+                    </div>
+                    
+                    <div class="nav-menu">
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="dropdown">
+                                <a href="shop.html">Shop <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="shop.html?category=bedsheets">Bed Sheets & Covers</a>
+                                    <a href="shop.html?category=pillows">Pillow & Cushion Covers</a>
+                                    <a href="shop.html?category=curtains">Curtains & Drapes</a>
+                                    <a href="shop.html?category=rugs">Rugs & Carpets</a>
+                                    <a href="shop.html?category=table">Table Runners & Cloths</a>
+                                    <a href="shop.html?category=throws">Sofa Throws</a>
+                                    <a href="shop.html?category=quilts">Quilts & Dohars</a>
+                                </div>
+                            </li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search products..." id="searchInput">
+                            <button type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a href="account.html" class="nav-icon active"><i class="fas fa-user"></i></a>
+                        <a href="cart.html" class="nav-icon cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Account Section -->
+    <section class="account-section">
+        <div class="container">
+            <!-- Login/Register Form (shown when not logged in) -->
+            <div class="auth-container" id="authContainer">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <div class="auth-form" id="loginForm">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to your Heritage Handlooms account</p>
+                    
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input type="email" id="loginEmail" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="loginPassword" name="password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox">
+                                <input type="checkbox" name="remember">
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                    
+                    <div class="social-login">
+                        <p>Or sign in with</p>
+                        <div class="social-buttons">
+                            <button class="social-btn google"><i class="fab fa-google"></i> Google</button>
+                            <button class="social-btn facebook"><i class="fab fa-facebook"></i> Facebook</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Register Form -->
+                <div class="auth-form" id="registerForm" style="display: none;">
+                    <h2>Create Account</h2>
+                    <p>Join Heritage Handlooms family</p>
+                    
+                    <form id="registerFormElement">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerEmail">Email Address</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerPhone">Phone Number</label>
+                            <input type="tel" id="registerPhone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="registerPassword" name="password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength" id="passwordStrength"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="password-input">
+                                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox">
+                                <input type="checkbox" name="terms" required>
+                                <span>I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Account Dashboard (shown when logged in) -->
+            <div class="account-dashboard" id="accountDashboard" style="display: none;">
+                <div class="dashboard-header">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h2 id="userName">Welcome Back!</h2>
+                            <p id="userEmail">user@example.com</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-sidebar">
+                        <nav class="account-nav">
+                            <a href="#" class="nav-item active" data-tab="overview">
+                                <i class="fas fa-tachometer-alt"></i> Overview
+                            </a>
+                            <a href="#" class="nav-item" data-tab="orders">
+                                <i class="fas fa-shopping-bag"></i> My Orders
+                            </a>
+                            <a href="#" class="nav-item" data-tab="wishlist">
+                                <i class="fas fa-heart"></i> Wishlist
+                            </a>
+                            <a href="#" class="nav-item" data-tab="addresses">
+                                <i class="fas fa-map-marker-alt"></i> Addresses
+                            </a>
+                            <a href="#" class="nav-item" data-tab="profile">
+                                <i class="fas fa-user-edit"></i> Profile
+                            </a>
+                            <a href="#" class="nav-item" data-tab="security">
+                                <i class="fas fa-shield-alt"></i> Security
+                            </a>
+                        </nav>
+                    </div>
+
+                    <div class="dashboard-main">
+                        <!-- Overview Tab -->
+                        <div class="tab-content active" id="overviewTab">
+                            <h3>Account Overview</h3>
+                            <div class="overview-stats">
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h4 id="totalOrders">0</h4>
+                                        <p>Total Orders</p>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h4 id="wishlistCount">0</h4>
+                                        <p>Wishlist Items</p>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-rupee-sign"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h4 id="totalSpent">₹0</h4>
+                                        <p>Total Spent</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="recent-activity">
+                                <h4>Recent Orders</h4>
+                                <div class="recent-orders" id="recentOrders">
+                                    <!-- Recent orders will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Orders Tab -->
+                        <div class="tab-content" id="ordersTab">
+                            <div class="tab-header">
+                                <h3>My Orders</h3>
+                                <div class="order-filters">
+                                    <select id="orderFilter">
+                                        <option value="all">All Orders</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="shipped">Shipped</option>
+                                        <option value="delivered">Delivered</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="orders-list" id="ordersList">
+                                <!-- Orders will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Wishlist Tab -->
+                        <div class="tab-content" id="wishlistTab">
+                            <div class="tab-header">
+                                <h3>My Wishlist</h3>
+                                <button class="btn btn-outline" onclick="clearWishlist()">
+                                    <i class="fas fa-trash"></i> Clear All
+                                </button>
+                            </div>
+                            <div class="wishlist-grid" id="wishlistGrid">
+                                <!-- Wishlist items will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Addresses Tab -->
+                        <div class="tab-content" id="addressesTab">
+                            <div class="tab-header">
+                                <h3>Saved Addresses</h3>
+                                <button class="btn btn-primary" onclick="showAddAddressModal()">
+                                    <i class="fas fa-plus"></i> Add New Address
+                                </button>
+                            </div>
+                            <div class="addresses-list" id="addressesList">
+                                <!-- Addresses will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Profile Tab -->
+                        <div class="tab-content" id="profileTab">
+                            <h3>Profile Information</h3>
+                            <form id="profileForm" class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profileFirstName">First Name</label>
+                                        <input type="text" id="profileFirstName" name="firstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profileLastName">Last Name</label>
+                                        <input type="text" id="profileLastName" name="lastName" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="profileEmail">Email Address</label>
+                                    <input type="email" id="profileEmail" name="email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="profilePhone">Phone Number</label>
+                                    <input type="tel" id="profilePhone" name="phone" required>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profileGender">Gender</label>
+                                        <select id="profileGender" name="gender">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profileDOB">Date of Birth</label>
+                                        <input type="date" id="profileDOB" name="dateOfBirth">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+
+                        <!-- Security Tab -->
+                        <div class="tab-content" id="securityTab">
+                            <h3>Security Settings</h3>
+                            
+                            <div class="security-section">
+                                <h4>Change Password</h4>
+                                <form id="changePasswordForm">
+                                    <div class="form-group">
+                                        <label for="currentPassword">Current Password</label>
+                                        <input type="password" id="currentPassword" name="currentPassword" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="newPassword">New Password</label>
+                                        <input type="password" id="newPassword" name="newPassword" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="confirmNewPassword">Confirm New Password</label>
+                                        <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary">Change Password</button>
+                                </form>
+                            </div>
+                            
+                            <div class="security-section">
+                                <h4>Two-Factor Authentication</h4>
+                                <p>Add an extra layer of security to your account</p>
+                                <button class="btn btn-outline">Enable 2FA</button>
+                            </div>
+                            
+                            <div class="security-section">
+                                <h4>Login History</h4>
+                                <div class="login-history">
+                                    <div class="login-item">
+                                        <div class="login-info">
+                                            <strong>Current Session</strong>
+                                            <p>Chrome on Windows • Mumbai, India</p>
+                                        </div>
+                                        <span class="login-time">Now</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Address Modal -->
+    <div class="modal" id="addAddressModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Address</h3>
+                <button class="modal-close" onclick="closeAddAddressModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addAddressForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addressName">Address Name</label>
+                            <input type="text" id="addressName" name="name" placeholder="Home, Office, etc." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addressPhone">Phone Number</label>
+                            <input type="tel" id="addressPhone" name="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine">Address</label>
+                        <input type="text" id="addressLine" name="address" placeholder="Street address" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addressCity">City</label>
+                            <input type="text" id="addressCity" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addressState">State</label>
+                            <select id="addressState" name="state" required>
+                                <option value="">Select State</option>
+                                <option value="MH">Maharashtra</option>
+                                <option value="DL">Delhi</option>
+                                <option value="KA">Karnataka</option>
+                                <option value="TN">Tamil Nadu</option>
+                                <option value="WB">West Bengal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addressPincode">PIN Code</label>
+                            <input type="text" id="addressPincode" name="pincode" pattern="[0-9]{6}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox">
+                            <input type="checkbox" name="isDefault">
+                            <span>Set as default address</span>
+                        </label>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeAddAddressModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Heritage Handlooms</h3>
+                    <p>Preserving traditional Indian craftsmanship through premium handloom textiles.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-envelope"></i> info@heritagehandlooms.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Heritage Handlooms. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="orderDetailsModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <button class="modal-close" onclick="closeOrderDetailsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="orderDetailsContent">
+                    <!-- Order details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>

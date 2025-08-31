@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Management - Heritage Handlooms Admin</title>
+    <meta name="description" content="Manage handloom products, add new items, update inventory, and track product performance.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-nav">
+            <div class="admin-logo">
+                <h2>Heritage Handlooms</h2>
+                <span>Products Management</span>
+            </div>
+            <div class="admin-actions">
+                <div class="admin-search">
+                    <input type="text" placeholder="Search products..." id="adminSearch">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="admin-notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </div>
+                <div class="admin-user">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="user-info">
+                        <span>Admin User</span>
+                        <small>Administrator</small>
+                    </div>
+                    <button class="logout-btn" onclick="adminLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-menu">
+                <a href="admin.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin-products.html" class="menu-item active">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="admin-orders.html" class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="admin-customers.html" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="admin-categories.html" class="menu-item">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </a>
+                <a href="admin-inventory.html" class="menu-item">
+                    <i class="fas fa-warehouse"></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="admin.html#analytics" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="admin.html#settings" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Products Management -->
+            <div class="admin-content active">
+                <div class="content-header">
+                    <h1>Products Management</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" onclick="exportProducts()">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn btn-outline" onclick="importProducts()">
+                            <i class="fas fa-upload"></i> Import
+                        </button>
+                        <button class="btn btn-primary" onclick="showAddProductModal()">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon products">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalProducts">0</h3>
+                            <p>Total Products</p>
+                            <span class="stat-change neutral">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #28a745;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="activeProducts">0</h3>
+                            <p>Active Products</p>
+                            <span class="stat-change positive">+5.2%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #dc3545;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="lowStockProducts">0</h3>
+                            <p>Low Stock</p>
+                            <span class="stat-change negative">-2.1%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #6f42c1;">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="featuredProducts">0</h3>
+                            <p>Featured Products</p>
+                            <span class="stat-change positive">+8.7%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters and Search -->
+                <div class="table-filters">
+                    <div class="filter-group">
+                        <input type="text" placeholder="Search products by name, SKU..." id="productSearch">
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="bedsheets">Bed Sheets & Covers</option>
+                            <option value="pillows">Pillow & Cushion Covers</option>
+                            <option value="curtains">Curtains & Drapes</option>
+                            <option value="rugs">Rugs & Carpets</option>
+                            <option value="table">Table Runners & Cloths</option>
+                            <option value="throws">Sofa Throws</option>
+                            <option value="quilts">Quilts & Dohars</option>
+                        </select>
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="out-of-stock">Out of Stock</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                        <select id="priceFilter">
+                            <option value="">All Prices</option>
+                            <option value="0-500">₹0 - ₹500</option>
+                            <option value="500-1000">₹500 - ₹1,000</option>
+                            <option value="1000-2000">₹1,000 - ₹2,000</option>
+                            <option value="2000-5000">₹2,000 - ₹5,000</option>
+                            <option value="5000+">₹5,000+</option>
+                        </select>
+                        <button class="btn btn-outline" onclick="clearFilters()">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">
+                            <h3>Products List</h3>
+                            <span id="productCount">0 products</span>
+                        </div>
+                        <div class="table-controls">
+                            <select id="bulkAction">
+                                <option value="">Bulk Actions</option>
+                                <option value="activate">Activate Selected</option>
+                                <option value="deactivate">Deactivate Selected</option>
+                                <option value="delete">Delete Selected</option>
+                                <option value="feature">Feature Selected</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm" onclick="applyBulkAction()">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <table id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                                </th>
+                                <th onclick="sortTable('name')">
+                                    Product <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortTable('category')">
+                                    Category <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortTable('price')">
+                                    Price <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortTable('stock')">
+                                    Stock <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortTable('status')">
+                                    Status <i class="fas fa-sort"></i>
+                                </th>
+                                <th>Featured</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                    
+                    <!-- Pagination -->
+                    <div class="table-pagination">
+                        <div class="pagination-info">
+                            Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalEntries">0</span> entries
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="btn btn-outline btn-sm" onclick="previousPage()" id="prevBtn">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="page-numbers" id="pageNumbers">
+                                <!-- Page numbers will be generated here -->
+                            </div>
+                            <button class="btn btn-outline btn-sm" onclick="nextPage()" id="nextBtn">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="addProductModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Add New Product</h3>
+                <button class="modal-close" onclick="closeAddProductModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm" enctype="multipart/form-data">
+                    <div class="form-tabs">
+                        <button type="button" class="tab-btn active" data-tab="basic">Basic Info</button>
+                        <button type="button" class="tab-btn" data-tab="details">Details</button>
+                        <button type="button" class="tab-btn" data-tab="images">Images</button>
+                        <button type="button" class="tab-btn" data-tab="seo">SEO</button>
+                    </div>
+
+                    <!-- Basic Info Tab -->
+                    <div class="tab-content active" id="basicTab">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Product Name *</label>
+                                <input type="text" name="name" required placeholder="Enter product name">
+                            </div>
+                            <div class="form-group">
+                                <label>SKU *</label>
+                                <input type="text" name="sku" required placeholder="Auto-generated" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Category *</label>
+                                <select name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="bedsheets">Bed Sheets & Covers</option>
+                                    <option value="pillows">Pillow & Cushion Covers</option>
+                                    <option value="curtains">Curtains & Drapes</option>
+                                    <option value="rugs">Rugs & Carpets</option>
+                                    <option value="table">Table Runners & Cloths</option>
+                                    <option value="throws">Sofa Throws</option>
+                                    <option value="quilts">Quilts & Dohars</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="draft">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Price (₹) *</label>
+                                <input type="number" name="price" required min="0" step="0.01" placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label>Compare Price (₹)</label>
+                                <input type="number" name="comparePrice" min="0" step="0.01" placeholder="0.00">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Stock Quantity *</label>
+                                <input type="number" name="stock" required min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Low Stock Alert</label>
+                                <input type="number" name="lowStockAlert" min="0" placeholder="5" value="5">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details Tab -->
+                    <div class="tab-content" id="detailsTab">
+                        <div class="form-group">
+                            <label>Short Description</label>
+                            <textarea name="shortDescription" rows="3" placeholder="Brief product description"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Full Description</label>
+                            <textarea name="description" rows="6" placeholder="Detailed product description"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Material</label>
+                                <input type="text" name="material" placeholder="e.g., Cotton, Silk, Linen">
+                            </div>
+                            <div class="form-group">
+                                <label>Pattern</label>
+                                <input type="text" name="pattern" placeholder="e.g., Floral, Geometric, Plain">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Dimensions</label>
+                                <input type="text" name="dimensions" placeholder="e.g., 90x108 inches">
+                            </div>
+                            <div class="form-group">
+                                <label>Weight (kg)</label>
+                                <input type="number" name="weight" step="0.01" placeholder="0.00">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Care Instructions</label>
+                            <textarea name="careInstructions" rows="3" placeholder="How to care for this product"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Available Colors</label>
+                            <div class="color-options">
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="red"> Red</label>
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="blue"> Blue</label>
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="green"> Green</label>
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="yellow"> Yellow</label>
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="white"> White</label>
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="black"> Black</label>
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="brown"> Brown</label>
+                                <label class="checkbox"><input type="checkbox" name="colors[]" value="beige"> Beige</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Images Tab -->
+                    <div class="tab-content" id="imagesTab">
+                        <div class="form-group">
+                            <label>Product Images</label>
+                            <div class="image-upload-area" id="imageUploadArea">
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Drag & drop images here or click to browse</p>
+                                    <input type="file" name="images" multiple accept="image/*" id="imageInput">
+                                </div>
+                                <div class="image-preview" id="imagePreview">
+                                    <!-- Image previews will appear here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEO Tab -->
+                    <div class="tab-content" id="seoTab">
+                        <div class="form-group">
+                            <label>SEO Title</label>
+                            <input type="text" name="seoTitle" placeholder="SEO optimized title">
+                            <small>Recommended: 50-60 characters</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Meta Description</label>
+                            <textarea name="metaDescription" rows="3" placeholder="SEO meta description"></textarea>
+                            <small>Recommended: 150-160 characters</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Keywords</label>
+                            <input type="text" name="keywords" placeholder="Comma separated keywords">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" name="featured">
+                                <span>Feature this product</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeAddProductModal()">Cancel</button>
+                        <button type="button" class="btn btn-outline" onclick="saveAsDraft()">Save as Draft</button>
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal" id="editProductModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Edit Product</h3>
+                <button class="modal-close" onclick="closeEditProductModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <!-- Similar structure to add product form -->
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeEditProductModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/admin-products.js"></script>
+</body>
+</html>

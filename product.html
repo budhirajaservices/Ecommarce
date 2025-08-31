@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Heritage Handlooms</title>
+    <meta name="description" content="View detailed information about our premium handloom products including specifications, materials, and customer reviews.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                        <span><i class="fas fa-envelope"></i> info@heritagehandlooms.com</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <h1>Heritage Handlooms</h1>
+                        <span>Authentic Indian Textiles</span>
+                    </div>
+                    
+                    <div class="nav-menu">
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="dropdown">
+                                <a href="shop.html">Shop <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="shop.html?category=bedsheets">Bed Sheets & Covers</a>
+                                    <a href="shop.html?category=pillows">Pillow & Cushion Covers</a>
+                                    <a href="shop.html?category=curtains">Curtains & Drapes</a>
+                                    <a href="shop.html?category=rugs">Rugs & Carpets</a>
+                                    <a href="shop.html?category=table">Table Runners & Cloths</a>
+                                    <a href="shop.html?category=throws">Sofa Throws</a>
+                                    <a href="shop.html?category=quilts">Quilts & Dohars</a>
+                                </div>
+                            </li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search products..." id="searchInput">
+                            <button type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a href="account.html" class="nav-icon"><i class="fas fa-user"></i></a>
+                        <a href="cart.html" class="nav-icon cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav" id="breadcrumbNav">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="shop.html">Shop</a>
+                <span>/</span>
+                <span id="productCategory">Product</span>
+                <span>/</span>
+                <span id="productName">Product Details</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-content" id="productContent">
+                <!-- Product content will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <section class="product-tabs">
+        <div class="container">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="description">Description</button>
+                <button class="tab-btn" data-tab="specifications">Specifications</button>
+                <button class="tab-btn" data-tab="care">Care Instructions</button>
+                <button class="tab-btn" data-tab="reviews">Reviews</button>
+            </div>
+            
+            <div class="tabs-content">
+                <div class="tab-panel active" id="description">
+                    <div class="tab-content" id="descriptionContent">
+                        <!-- Description content will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <div class="tab-panel" id="specifications">
+                    <div class="tab-content" id="specificationsContent">
+                        <!-- Specifications content will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <div class="tab-panel" id="care">
+                    <div class="tab-content">
+                        <h3>Care Instructions</h3>
+                        <div class="care-instructions">
+                            <div class="care-item">
+                                <i class="fas fa-tint"></i>
+                                <div>
+                                    <h4>Washing</h4>
+                                    <p>Machine wash cold with like colors. Use mild detergent and avoid bleach.</p>
+                                </div>
+                            </div>
+                            <div class="care-item">
+                                <i class="fas fa-sun"></i>
+                                <div>
+                                    <h4>Drying</h4>
+                                    <p>Tumble dry low or line dry in shade. Avoid direct sunlight to preserve colors.</p>
+                                </div>
+                            </div>
+                            <div class="care-item">
+                                <i class="fas fa-fire"></i>
+                                <div>
+                                    <h4>Ironing</h4>
+                                    <p>Iron on medium heat while slightly damp. Use pressing cloth for delicate fabrics.</p>
+                                </div>
+                            </div>
+                            <div class="care-item">
+                                <i class="fas fa-archive"></i>
+                                <div>
+                                    <h4>Storage</h4>
+                                    <p>Store in a cool, dry place. Fold carefully or hang to prevent wrinkles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-panel" id="reviews">
+                    <div class="tab-content">
+                        <div class="reviews-summary" id="reviewsSummary">
+                            <!-- Reviews summary will be loaded dynamically -->
+                        </div>
+                        <div class="reviews-list" id="reviewsList">
+                            <!-- Reviews will be loaded dynamically -->
+                        </div>
+                        <div class="review-form">
+                            <h4>Write a Review</h4>
+                            <form id="reviewForm">
+                                <div class="rating-input">
+                                    <label>Your Rating:</label>
+                                    <div class="star-rating">
+                                        <input type="radio" name="rating" value="5" id="star5">
+                                        <label for="star5"><i class="fas fa-star"></i></label>
+                                        <input type="radio" name="rating" value="4" id="star4">
+                                        <label for="star4"><i class="fas fa-star"></i></label>
+                                        <input type="radio" name="rating" value="3" id="star3">
+                                        <label for="star3"><i class="fas fa-star"></i></label>
+                                        <input type="radio" name="rating" value="2" id="star2">
+                                        <label for="star2"><i class="fas fa-star"></i></label>
+                                        <input type="radio" name="rating" value="1" id="star1">
+                                        <label for="star1"><i class="fas fa-star"></i></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reviewTitle">Review Title</label>
+                                    <input type="text" id="reviewTitle" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reviewText">Your Review</label>
+                                    <textarea id="reviewText" rows="4" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reviewerName">Your Name</label>
+                                    <input type="text" id="reviewerName" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Products</h2>
+                <p>You might also like these products</p>
+            </div>
+            <div class="products-grid" id="relatedProducts">
+                <!-- Related products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Viewed -->
+    <section class="recently-viewed">
+        <div class="container">
+            <div class="section-header">
+                <h2>Recently Viewed</h2>
+                <p>Products you've viewed recently</p>
+            </div>
+            <div class="products-grid" id="recentlyViewed">
+                <!-- Recently viewed products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Chart Modal -->
+    <div class="size-chart-modal" id="sizeChartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Size Chart</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="size-chart-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Size</th>
+                                <th>Dimensions (inches)</th>
+                                <th>Fits Bed Size</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sizeChartBody">
+                            <!-- Size chart content will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div class="zoom-modal" id="zoomModal">
+        <div class="zoom-content">
+            <button class="zoom-close">&times;</button>
+            <img id="zoomedImage" src="" alt="">
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoomPrev"><i class="fas fa-chevron-left"></i></button>
+                <button class="zoom-btn" id="zoomNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Heritage Handlooms</h3>
+                    <p>Preserving traditional Indian craftsmanship through premium handloom textiles. Each piece tells a story of heritage and artisan excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">My Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="shop.html?category=bedsheets">Bed Sheets</a></li>
+                        <li><a href="shop.html?category=curtains">Curtains</a></li>
+                        <li><a href="shop.html?category=rugs">Rugs & Carpets</a></li>
+                        <li><a href="shop.html?category=pillows">Cushion Covers</a></li>
+                        <li><a href="shop.html?category=throws">Sofa Throws</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Handloom Street, Textile District, Mumbai 400001</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-envelope"></i> info@heritagehandlooms.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Heritage Handlooms. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/product.js"></script>
+</body>
+</html>

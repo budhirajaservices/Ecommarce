@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Management - Heritage Handlooms Admin</title>
+    <meta name="description" content="Manage customer orders, track shipments, and process payments for Heritage Handlooms.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-nav">
+            <div class="admin-logo">
+                <h2>Heritage Handlooms</h2>
+                <span>Orders Management</span>
+            </div>
+            <div class="admin-actions">
+                <div class="admin-search">
+                    <input type="text" placeholder="Search orders..." id="adminSearch">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="admin-notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">5</span>
+                </div>
+                <div class="admin-user">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="user-info">
+                        <span>Admin User</span>
+                        <small>Administrator</small>
+                    </div>
+                    <button class="logout-btn" onclick="adminLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-menu">
+                <a href="admin.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin-products.html" class="menu-item">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="admin-orders.html" class="menu-item active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="admin-customers.html" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="admin-categories.html" class="menu-item">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </a>
+                <a href="admin-inventory.html" class="menu-item">
+                    <i class="fas fa-warehouse"></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="admin.html#analytics" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="admin.html#settings" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Orders Management -->
+            <div class="admin-content active">
+                <div class="content-header">
+                    <h1>Orders Management</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" onclick="exportOrders()">
+                            <i class="fas fa-download"></i> Export Orders
+                        </button>
+                        <button class="btn btn-outline" onclick="printOrders()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-primary" onclick="refreshOrders()">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon orders">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalOrders">0</h3>
+                            <p>Total Orders</p>
+                            <span class="stat-change positive">+12.5%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #ffc107;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pendingOrders">0</h3>
+                            <p>Pending Orders</p>
+                            <span class="stat-change negative">-5.2%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #17a2b8;">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="shippedOrders">0</h3>
+                            <p>Shipped Orders</p>
+                            <span class="stat-change positive">+8.7%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon revenue">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalRevenue">₹0</h3>
+                            <p>Total Revenue</p>
+                            <span class="stat-change positive">+15.3%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="action-card" onclick="filterOrdersByStatus('pending')">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            <h4 id="urgentOrders">0</h4>
+                            <p>Urgent Orders</p>
+                        </div>
+                    </div>
+                    <div class="action-card" onclick="filterOrdersByStatus('confirmed')">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4 id="toShipOrders">0</h4>
+                            <p>Ready to Ship</p>
+                        </div>
+                    </div>
+                    <div class="action-card" onclick="showRefundRequests()">
+                        <i class="fas fa-undo"></i>
+                        <div>
+                            <h4 id="refundRequests">0</h4>
+                            <p>Refund Requests</p>
+                        </div>
+                    </div>
+                    <div class="action-card" onclick="showReturns()">
+                        <i class="fas fa-exchange-alt"></i>
+                        <div>
+                            <h4 id="returnRequests">0</h4>
+                            <p>Return Requests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters and Search -->
+                <div class="table-filters">
+                    <div class="filter-group">
+                        <input type="text" placeholder="Search by Order ID, Customer..." id="orderSearch">
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                        <select id="paymentFilter">
+                            <option value="">All Payments</option>
+                            <option value="paid">Paid</option>
+                            <option value="pending">Payment Pending</option>
+                            <option value="failed">Payment Failed</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                        <input type="date" id="dateFrom" placeholder="From Date">
+                        <input type="date" id="dateTo" placeholder="To Date">
+                        <select id="amountFilter">
+                            <option value="">All Amounts</option>
+                            <option value="0-1000">₹0 - ₹1,000</option>
+                            <option value="1000-5000">₹1,000 - ₹5,000</option>
+                            <option value="5000-10000">₹5,000 - ₹10,000</option>
+                            <option value="10000+">₹10,000+</option>
+                        </select>
+                        <button class="btn btn-outline" onclick="clearOrderFilters()">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">
+                            <h3>Orders List</h3>
+                            <span id="orderCount">0 orders</span>
+                        </div>
+                        <div class="table-controls">
+                            <select id="bulkOrderAction">
+                                <option value="">Bulk Actions</option>
+                                <option value="confirm">Confirm Selected</option>
+                                <option value="ship">Mark as Shipped</option>
+                                <option value="deliver">Mark as Delivered</option>
+                                <option value="cancel">Cancel Selected</option>
+                                <option value="export">Export Selected</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm" onclick="applyBulkOrderAction()">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <table id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAllOrders" onchange="toggleSelectAllOrders()">
+                                </th>
+                                <th onclick="sortOrderTable('orderId')">
+                                    Order ID <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortOrderTable('customer')">
+                                    Customer <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortOrderTable('date')">
+                                    Date <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortOrderTable('items')">
+                                    Items <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortOrderTable('total')">
+                                    Total <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortOrderTable('payment')">
+                                    Payment <i class="fas fa-sort"></i>
+                                </th>
+                                <th onclick="sortOrderTable('status')">
+                                    Status <i class="fas fa-sort"></i>
+                                </th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                    
+                    <!-- Pagination -->
+                    <div class="table-pagination">
+                        <div class="pagination-info">
+                            Showing <span id="orderShowingStart">0</span> to <span id="orderShowingEnd">0</span> of <span id="orderTotalEntries">0</span> entries
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="btn btn-outline btn-sm" onclick="previousOrderPage()" id="orderPrevBtn">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="page-numbers" id="orderPageNumbers">
+                                <!-- Page numbers will be generated here -->
+                            </div>
+                            <button class="btn btn-outline btn-sm" onclick="nextOrderPage()" id="orderNextBtn">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="orderDetailsModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <button class="modal-close" onclick="closeOrderDetailsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="order-details-content" id="orderDetailsContent">
+                    <!-- Order details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Order Status Modal -->
+    <div class="modal" id="updateStatusModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Order Status</h3>
+                <button class="modal-close" onclick="closeUpdateStatusModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="updateStatusForm">
+                    <div class="form-group">
+                        <label>Order ID</label>
+                        <input type="text" id="statusOrderId" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Current Status</label>
+                        <input type="text" id="currentStatus" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>New Status *</label>
+                        <select id="newStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tracking Number</label>
+                        <input type="text" id="trackingNumber" placeholder="Enter tracking number (for shipped orders)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="statusNotes" rows="3" placeholder="Add notes about status change"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" id="notifyCustomer" checked>
+                            <span>Notify customer via email</span>
+                        </label>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeUpdateStatusModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Invoice Modal -->
+    <div class="modal" id="printInvoiceModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Invoice</h3>
+                <div class="modal-actions">
+                    <button class="btn btn-outline" onclick="printInvoice()">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button class="modal-close" onclick="closePrintInvoiceModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="invoice-content" id="invoiceContent">
+                    <!-- Invoice will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/admin-orders.js"></script>
+</body>
+</html>

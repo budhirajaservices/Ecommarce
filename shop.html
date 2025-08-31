@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Heritage Handlooms</title>
+    <meta name="description" content="Browse our complete collection of premium handloom products including bed sheets, curtains, rugs, and traditional Indian textiles.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/shop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                        <span><i class="fas fa-envelope"></i> info@heritagehandlooms.com</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <h1>Heritage Handlooms</h1>
+                        <span>Authentic Indian Textiles</span>
+                    </div>
+                    
+                    <div class="nav-menu">
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="dropdown">
+                                <a href="shop.html" class="active">Shop <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="shop.html?category=bedsheets">Bed Sheets & Covers</a>
+                                    <a href="shop.html?category=pillows">Pillow & Cushion Covers</a>
+                                    <a href="shop.html?category=curtains">Curtains & Drapes</a>
+                                    <a href="shop.html?category=rugs">Rugs & Carpets</a>
+                                    <a href="shop.html?category=table">Table Runners & Cloths</a>
+                                    <a href="shop.html?category=throws">Sofa Throws</a>
+                                    <a href="shop.html?category=quilts">Quilts & Dohars</a>
+                                </div>
+                            </li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search products..." id="searchInput">
+                            <button type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a href="account.html" class="nav-icon"><i class="fas fa-user"></i></a>
+                        <a href="cart.html" class="nav-icon cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span id="currentCategory">Shop</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="shop-section">
+        <div class="container">
+            <div class="shop-header">
+                <div class="shop-title">
+                    <h1 id="shopTitle">All Products</h1>
+                    <p id="shopDescription">Discover our complete collection of premium handloom products</p>
+                </div>
+                <div class="shop-controls">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button>
+                        <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+                    </div>
+                    <div class="sort-dropdown">
+                        <select id="sortSelect">
+                            <option value="featured">Sort by: Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                            <option value="rating">Rating: High to Low</option>
+                            <option value="newest">Newest First</option>
+                        </select>
+                    </div>
+                    <div class="results-count">
+                        <span id="resultsCount">Showing 1-12 of 24 results</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-content">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filters-header">
+                        <h3>Filters</h3>
+                        <button class="clear-filters" id="clearFilters">Clear All</button>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="filter-group">
+                        <h4>Categories</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="bedsheets">
+                                <span class="checkmark"></span>
+                                Bed Sheets & Covers <span class="count">(8)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="pillows">
+                                <span class="checkmark"></span>
+                                Pillow & Cushion Covers <span class="count">(6)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="curtains">
+                                <span class="checkmark"></span>
+                                Curtains & Drapes <span class="count">(5)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="rugs">
+                                <span class="checkmark"></span>
+                                Rugs & Carpets <span class="count">(4)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="table">
+                                <span class="checkmark"></span>
+                                Table Runners & Cloths <span class="count">(3)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="throws">
+                                <span class="checkmark"></span>
+                                Sofa Throws <span class="count">(4)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="quilts">
+                                <span class="checkmark"></span>
+                                Quilts & Dohars <span class="count">(3)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div class="filter-group">
+                        <h4>Price Range</h4>
+                        <div class="price-range">
+                            <div class="price-inputs">
+                                <input type="number" id="minPrice" placeholder="Min" min="0">
+                                <span>to</span>
+                                <input type="number" id="maxPrice" placeholder="Max" min="0">
+                            </div>
+                            <div class="price-slider">
+                                <input type="range" id="priceRange" min="0" max="15000" value="15000">
+                            </div>
+                            <div class="price-labels">
+                                <span>₹0</span>
+                                <span>₹15,000+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color Filter -->
+                    <div class="filter-group">
+                        <h4>Colors</h4>
+                        <div class="color-options">
+                            <label class="color-option">
+                                <input type="checkbox" name="color" value="beige">
+                                <span class="color-swatch" style="background-color: #F5F5DC"></span>
+                                Beige
+                            </label>
+                            <label class="color-option">
+                                <input type="checkbox" name="color" value="brown">
+                                <span class="color-swatch" style="background-color: #8B4513"></span>
+                                Brown
+                            </label>
+                            <label class="color-option">
+                                <input type="checkbox" name="color" value="maroon">
+                                <span class="color-swatch" style="background-color: #800000"></span>
+                                Maroon
+                            </label>
+                            <label class="color-option">
+                                <input type="checkbox" name="color" value="gold">
+                                <span class="color-swatch" style="background-color: #DAA520"></span>
+                                Gold
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Material Filter -->
+                    <div class="filter-group">
+                        <h4>Material</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="material" value="cotton">
+                                <span class="checkmark"></span>
+                                Cotton <span class="count">(12)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="material" value="silk">
+                                <span class="checkmark"></span>
+                                Silk <span class="count">(8)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="material" value="wool">
+                                <span class="checkmark"></span>
+                                Wool <span class="count">(6)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="material" value="blend">
+                                <span class="checkmark"></span>
+                                Cotton Blend <span class="count">(4)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Rating Filter -->
+                    <div class="filter-group">
+                        <h4>Customer Rating</h4>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="4">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                & Up
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="3">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                & Up
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Filter Toggle -->
+                    <button class="mobile-filter-toggle" id="mobileFilterToggle">
+                        <i class="fas fa-filter"></i> Filters
+                    </button>
+                </aside>
+
+                <!-- Products Grid -->
+                <main class="products-main">
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded dynamically -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn prev" id="prevPage" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <div class="page-numbers" id="pageNumbers">
+                            <!-- Page numbers will be generated dynamically -->
+                        </div>
+                        <button class="page-btn next" id="nextPage">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Heritage Handlooms</h3>
+                    <p>Preserving traditional Indian craftsmanship through premium handloom textiles. Each piece tells a story of heritage and artisan excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">My Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="shop.html?category=bedsheets">Bed Sheets</a></li>
+                        <li><a href="shop.html?category=curtains">Curtains</a></li>
+                        <li><a href="shop.html?category=rugs">Rugs & Carpets</a></li>
+                        <li><a href="shop.html?category=pillows">Cushion Covers</a></li>
+                        <li><a href="shop.html?category=throws">Sofa Throws</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Handloom Street, Textile District, Mumbai 400001</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-envelope"></i> info@heritagehandlooms.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Heritage Handlooms. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/shop.js"></script>
+</body>
+</html>

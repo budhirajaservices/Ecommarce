@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heritage Handlooms - Premium Indian Textiles</title>
+    <meta name="description" content="Discover premium handloom products including bed sheets, curtains, rugs, and traditional Indian textiles crafted by skilled artisans.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Top Bar Styles */
+        .top-bar {
+            background-color: #003d6a;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shipping-banner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shipping-banner i {
+            color: #ffd700;
+        }
+
+        .top-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-links a:hover {
+            opacity: 0.8;
+        }
+
+        .live-chat {
+            font-weight: 600;
+        }
+
+        /* Live Chat Widget */
+        .live-chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            max-height: 500px;
+        }
+
+        .chat-header {
+            background: #8b5a2b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            padding: 15px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .chat-message.bot {
+            background: #f1f1f1;
+            border-bottom-left-radius: 5px;
+            margin-right: auto;
+        }
+
+        .chat-message.user {
+            background: #e3f2fd;
+            border-bottom-right-radius: 5px;
+            margin-left: auto;
+        }
+
+        .chat-time {
+            display: block;
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-input button {
+            background: #8b5a2b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .live-chat-widget {
+                width: 90%;
+                right: 5%;
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="shipping-banner">
+                        <i class="fas fa-truck"></i> Free Shipping on orders over ₹500
+                    </div>
+                    <div class="top-links">
+                        <a href="#" class="live-chat" id="liveChatBtn">
+                            <i class="fas fa-comment-dots"></i> Live Chat
+                        </a>
+                        <a href="contact.html">Contact Us</a>
+                        <a href="tracking.html">Track Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <h1>Heritage Handlooms</h1>
+                        <span>Authentic Indian Textiles</span>
+                    </div>
+                    
+                    <div class="nav-menu">
+                        <ul class="nav-links">
+                            <li><a href="index.html" class="active">Home</a></li>
+                            <li class="dropdown">
+                                <a href="shop.html">Shop <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="shop.html?category=bedsheets">Bed Sheets & Covers</a>
+                                    <a href="shop.html?category=pillows">Pillow & Cushion Covers</a>
+                                    <a href="shop.html?category=curtains">Curtains & Drapes</a>
+                                    <a href="shop.html?category=rugs">Rugs & Carpets</a>
+                                    <a href="shop.html?category=table">Table Runners & Cloths</a>
+                                    <a href="shop.html?category=throws">Sofa Throws</a>
+                                    <a href="shop.html?category=quilts">Quilts & Dohars</a>
+                                </div>
+                            </li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search products..." id="searchInput">
+                            <button type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a href="account.html" class="nav-icon"><i class="fas fa-user"></i></a>
+                        <a href="cart.html" class="nav-icon cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slide active">
+                <div class="slide-bg" style="background-image: url('images/hero-1.jpg')"></div>
+                <div class="slide-content">
+                    <div class="container">
+                        <h2>Premium Handloom Bed Sheets</h2>
+                        <p>Experience the luxury of authentic Indian craftsmanship</p>
+                        <a href="shop.html?category=bedsheets" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-bg" style="background-image: url('images/hero-2.jpg')"></div>
+                <div class="slide-content">
+                    <div class="container">
+                        <h2>Elegant Curtains & Drapes</h2>
+                        <p>Transform your space with traditional elegance</p>
+                        <a href="shop.html?category=curtains" class="btn btn-primary">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-bg" style="background-image: url('images/hero-3.jpg')"></div>
+                <div class="slide-content">
+                    <div class="container">
+                        <h2>Handwoven Rugs & Carpets</h2>
+                        <p>Artisan-crafted pieces for your home</p>
+                        <a href="shop.html?category=rugs" class="btn btn-primary">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-controls">
+            <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
+            <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="hero-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Shop by Category</h2>
+                <p>Discover our handpicked collection of premium handloom products</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="images/category-bedsheets.jpg" alt="Bed Sheets & Covers">
+                    </div>
+                    <div class="category-content">
+                        <h3>Bed Sheets & Covers</h3>
+                        <p>Luxurious comfort for your bedroom</p>
+                        <a href="shop.html?category=bedsheets" class="btn btn-outline">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="images/category-pillows.jpg" alt="Pillow & Cushion Covers">
+                    </div>
+                    <div class="category-content">
+                        <h3>Pillow & Cushion Covers</h3>
+                        <p>Add elegance to your living space</p>
+                        <a href="shop.html?category=pillows" class="btn btn-outline">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="images/category-curtains.jpg" alt="Curtains & Drapes">
+                    </div>
+                    <div class="category-content">
+                        <h3>Curtains & Drapes</h3>
+                        <p>Transform your windows with style</p>
+                        <a href="shop.html?category=curtains" class="btn btn-outline">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="images/category-rugs.jpg" alt="Rugs & Carpets">
+                    </div>
+                    <div class="category-content">
+                        <h3>Rugs & Carpets</h3>
+                        <p>Handwoven masterpieces for your floor</p>
+                        <a href="shop.html?category=rugs" class="btn btn-outline">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="images/category-table.jpg" alt="Table Runners & Cloths">
+                    </div>
+                    <div class="category-content">
+                        <h3>Table Runners & Cloths</h3>
+                        <p>Elegant dining essentials</p>
+                        <a href="shop.html?category=table" class="btn btn-outline">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="images/category-throws.jpg" alt="Sofa Throws">
+                    </div>
+                    <div class="category-content">
+                        <h3>Sofa Throws</h3>
+                        <p>Cozy comfort for your seating</p>
+                        <a href="shop.html?category=throws" class="btn btn-outline">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="best-sellers">
+        <div class="container">
+            <div class="section-header">
+                <h2>Best Sellers</h2>
+                <p>Our most loved handloom products</p>
+            </div>
+            <div class="products-grid" id="bestSellers">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story -->
+    <section class="brand-story">
+        <div class="container">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>Our Heritage Story</h2>
+                    <p>For over three generations, Heritage Handlooms has been preserving the ancient art of Indian textile weaving. Our skilled artisans create each piece with love, dedication, and traditional techniques passed down through centuries.</p>
+                    <p>Every thread tells a story of cultural heritage, sustainable craftsmanship, and timeless beauty. When you choose Heritage Handlooms, you're not just buying a product – you're supporting local artisans and keeping traditional crafts alive.</p>
+                    <a href="about.html" class="btn btn-primary">Learn More</a>
+                </div>
+                <div class="story-image">
+                    <img src="images/artisan-story.jpg" alt="Artisan at work">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+                <p>Real reviews from satisfied customers</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial active">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"The quality of the bed sheets is exceptional. The traditional patterns and soft texture make our bedroom feel like a luxury hotel. Highly recommended!"</p>
+                        <div class="customer-info">
+                            <img src="images/customer-1.jpg" alt="Priya Sharma">
+                            <div>
+                                <h4>Priya Sharma</h4>
+                                <span>Mumbai</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Beautiful handwoven rugs that perfectly complement our home decor. The craftsmanship is outstanding and the colors are vibrant even after multiple washes."</p>
+                        <div class="customer-info">
+                            <img src="images/customer-2.jpg" alt="Rajesh Kumar">
+                            <div>
+                                <h4>Rajesh Kumar</h4>
+                                <span>Delhi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Fast delivery and excellent packaging. The curtains are exactly as shown in the pictures. Great customer service and authentic handloom products."</p>
+                        <div class="customer-info">
+                            <img src="images/customer-3.jpg" alt="Meera Patel">
+                            <div>
+                                <h4>Meera Patel</h4>
+                                <span>Bangalore</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Heritage Handlooms</h3>
+                    <p>Preserving traditional Indian craftsmanship through premium handloom textiles. Each piece tells a story of heritage and artisan excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">My Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="shop.html?category=bedsheets">Bed Sheets</a></li>
+                        <li><a href="shop.html?category=curtains">Curtains</a></li>
+                        <li><a href="shop.html?category=rugs">Rugs & Carpets</a></li>
+                        <li><a href="shop.html?category=pillows">Cushion Covers</a></li>
+                        <li><a href="shop.html?category=throws">Sofa Throws</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Heritage Handlooms. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Newsletter Popup -->
+    <div class="newsletter-popup" id="newsletterPopup">
+        <div class="popup-content">
+            <button class="popup-close">&times;</button>
+            <h3>Get 10% Off Your First Order!</h3>
+            <p>Subscribe to our newsletter and receive exclusive offers</p>
+            <form class="popup-form" id="popupNewsletterForm">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">Get Discount</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Live Chat Widget -->
+    <div class="live-chat-widget" id="liveChatWidget">
+        <div class="chat-header">
+            <h4>Live Chat Support</h4>
+            <button class="close-chat" id="closeChat">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message bot">
+                <p>Hello! How can we help you today?</p>
+                <span class="chat-time">Just now</span>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message..." id="chatInput">
+            <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Toggle Live Chat
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatBtn = document.getElementById('liveChatBtn');
+            const chatWidget = document.getElementById('liveChatWidget');
+            const closeChat = document.getElementById('closeChat');
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendMessage');
+            const chatMessages = document.getElementById('chatMessages');
+
+            chatBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                chatWidget.style.display = 'flex';
+                chatWidget.style.flexDirection = 'column';
+            });
+
+            closeChat.addEventListener('click', function() {
+                chatWidget.style.display = 'none';
+            });
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message
+                    const userMsg = document.createElement('div');
+                    userMsg.className = 'chat-message user';
+                    userMsg.innerHTML = `
+                        <p>${message}</p>
+                        <span class="chat-time">Just now</span>
+                    `;
+                    chatMessages.appendChild(userMsg);
+                    chatInput.value = '';
+                    
+                    // Auto-reply (simulated)
+                    setTimeout(() => {
+                        const botMsg = document.createElement('div');
+                        botMsg.className = 'chat-message bot';
+                        botMsg.innerHTML = `
+                            <p>Thank you for your message! Our support team will get back to you soon.</p>
+                            <span class="chat-time">Just now</span>
+                        `;
+                        chatMessages.appendChild(botMsg);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 1000);
+                    
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            }
+
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

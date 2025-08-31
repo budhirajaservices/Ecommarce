@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking - Heritage Handlooms</title>
+    <meta name="description" content="Track your Heritage Handlooms order status and delivery progress. Enter your order ID to get real-time updates.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tracking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                        <span><i class="fas fa-envelope"></i> info@heritagehandlooms.com</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <h1>Heritage Handlooms</h1>
+                        <span>Authentic Indian Textiles</span>
+                    </div>
+                    
+                    <div class="nav-menu">
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="dropdown">
+                                <a href="shop.html">Shop <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="shop.html?category=bedsheets">Bed Sheets & Covers</a>
+                                    <a href="shop.html?category=pillows">Pillow & Cushion Covers</a>
+                                    <a href="shop.html?category=curtains">Curtains & Drapes</a>
+                                    <a href="shop.html?category=rugs">Rugs & Carpets</a>
+                                    <a href="shop.html?category=table">Table Runners & Cloths</a>
+                                    <a href="shop.html?category=throws">Sofa Throws</a>
+                                    <a href="shop.html?category=quilts">Quilts & Dohars</a>
+                                </div>
+                            </li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search products..." id="searchInput">
+                            <button type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a href="account.html" class="nav-icon"><i class="fas fa-user"></i></a>
+                        <a href="cart.html" class="nav-icon cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Order Tracking</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Tracking Section -->
+    <section class="tracking-section">
+        <div class="container">
+            <div class="tracking-header">
+                <div class="tracking-hero">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h1>Track Your Order</h1>
+                    <p>Enter your order details below to track your Heritage Handlooms delivery</p>
+                </div>
+            </div>
+
+            <!-- Tracking Form -->
+            <div class="tracking-form-container">
+                <form class="tracking-form" id="trackingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orderId">Order ID *</label>
+                            <input type="text" id="orderId" name="orderId" placeholder="e.g., HH1234567890" required>
+                            <small>You can find your order ID in your confirmation email</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            <small>Email address used during checkout</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Track Order
+                    </button>
+                </form>
+            </div>
+
+            <!-- Tracking Results -->
+            <div class="tracking-results" id="trackingResults" style="display: none;">
+                <!-- Results will be loaded here -->
+            </div>
+
+            <!-- Quick Access -->
+            <div class="quick-access">
+                <h3>Quick Access</h3>
+                <div class="quick-links">
+                    <a href="account.html?tab=orders" class="quick-link">
+                        <i class="fas fa-list"></i>
+                        <span>View All Orders</span>
+                        <small>Access your account to see all orders</small>
+                    </a>
+                    <a href="contact.html" class="quick-link">
+                        <i class="fas fa-headset"></i>
+                        <span>Customer Support</span>
+                        <small>Need help? Contact our support team</small>
+                    </a>
+                    <a href="shop.html" class="quick-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Continue Shopping</span>
+                        <small>Explore our handloom collection</small>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tracking Info -->
+            <div class="tracking-info">
+                <h3>Delivery Information</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="fas fa-truck"></i>
+                        <h4>Standard Delivery</h4>
+                        <p>5-7 business days</p>
+                        <small>Free shipping on orders above ₹2,000</small>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Express Delivery</h4>
+                        <p>2-3 business days</p>
+                        <small>Available in major cities</small>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Secure Packaging</h4>
+                        <p>Protected delivery</p>
+                        <small>All items carefully packaged</small>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-undo"></i>
+                        <h4>Easy Returns</h4>
+                        <p>30-day return policy</p>
+                        <small>Hassle-free returns & exchanges</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Heritage Handlooms</h3>
+                    <p>Preserving traditional Indian craftsmanship through premium handloom textiles. Each piece tells a story of heritage and artisan excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">My Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="shop.html?category=bedsheets">Bed Sheets</a></li>
+                        <li><a href="shop.html?category=curtains">Curtains</a></li>
+                        <li><a href="shop.html?category=rugs">Rugs & Carpets</a></li>
+                        <li><a href="shop.html?category=pillows">Cushion Covers</a></li>
+                        <li><a href="shop.html?category=throws">Sofa Throws</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="tracking.html">Order Tracking</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Handloom Street, Textile District, Mumbai 400001</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-envelope"></i> info@heritagehandlooms.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Heritage Handlooms. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/tracking.js"></script>
+</body>
+</html>

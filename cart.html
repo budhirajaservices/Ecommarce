@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Heritage Handlooms</title>
+    <meta name="description" content="Review your selected handloom products and proceed to secure checkout. Free shipping on orders over ₹2000.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-option {
+            cursor: pointer;
+        }
+        
+        .payment-option input[type="radio"] {
+            display: none;
+        }
+        
+        .payment-option .payment-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .payment-option input[type="radio"]:checked + .payment-card {
+            border-color: #8b5a2b;
+            background-color: #f9f5f0;
+        }
+        
+        .payment-option .payment-card i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #8b5a2b;
+        }
+        
+        .payment-option .payment-card small {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .loading-payment-methods,
+        .no-payment-methods {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .loading-payment-methods i,
+        .no-payment-methods i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #8b5a2b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                        <span><i class="fas fa-envelope"></i> info@heritagehandlooms.com</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <h1>Heritage Handlooms</h1>
+                        <span>Authentic Indian Textiles</span>
+                    </div>
+                    
+                    <div class="nav-menu">
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="dropdown">
+                                <a href="shop.html">Shop <i class="fas fa-chevron-down"></i></a>
+                                <div class="dropdown-menu">
+                                    <a href="shop.html?category=bedsheets">Bed Sheets & Covers</a>
+                                    <a href="shop.html?category=pillows">Pillow & Cushion Covers</a>
+                                    <a href="shop.html?category=curtains">Curtains & Drapes</a>
+                                    <a href="shop.html?category=rugs">Rugs & Carpets</a>
+                                    <a href="shop.html?category=table">Table Runners & Cloths</a>
+                                    <a href="shop.html?category=throws">Sofa Throws</a>
+                                    <a href="shop.html?category=quilts">Quilts & Dohars</a>
+                                </div>
+                            </li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search products..." id="searchInput">
+                            <button type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a href="account.html" class="nav-icon"><i class="fas fa-user"></i></a>
+                        <a href="cart.html" class="nav-icon cart-icon active">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <button class="mobile-menu-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Shopping Cart</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-header">
+                <h1>Shopping Cart</h1>
+                <p id="cartItemCount">0 items in your cart</p>
+            </div>
+
+            <div class="cart-content" id="cartContent">
+                <!-- Cart items will be loaded dynamically -->
+            </div>
+
+            <!-- Empty Cart State -->
+            <div class="empty-cart" id="emptyCart" style="display: none;">
+                <div class="empty-cart-content">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h2>Your cart is empty</h2>
+                    <p>Looks like you haven't added any items to your cart yet.</p>
+                    <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section" id="checkoutSection">
+        <div class="container">
+            <div class="checkout-content">
+                <!-- Shipping Information -->
+                <div class="checkout-form">
+                    <h2>Shipping Information</h2>
+                    <form id="checkoutForm">
+                        <div class="form-section">
+                            <h3>Contact Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Shipping Address</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Address *</label>
+                                <input type="text" id="address" name="address" placeholder="Street address" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="apartment">Apartment, suite, etc.</label>
+                                <input type="text" id="apartment" name="apartment" placeholder="Apartment, suite, unit, building, floor, etc.">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State *</label>
+                                    <select id="state" name="state" required>
+                                        <option value="">Select State</option>
+                                        <option value="AN">Andaman and Nicobar Islands</option>
+                                        <option value="AP">Andhra Pradesh</option>
+                                        <option value="AR">Arunachal Pradesh</option>
+                                        <option value="AS">Assam</option>
+                                        <option value="BR">Bihar</option>
+                                        <option value="CG">Chhattisgarh</option>
+                                        <option value="CH">Chandigarh</option>
+                                        <option value="DH">Dadra and Nagar Haveli</option>
+                                        <option value="DD">Daman and Diu</option>
+                                        <option value="DL">Delhi</option>
+                                        <option value="GA">Goa</option>
+                                        <option value="GJ">Gujarat</option>
+                                        <option value="HR">Haryana</option>
+                                        <option value="HP">Himachal Pradesh</option>
+                                        <option value="JK">Jammu and Kashmir</option>
+                                        <option value="JH">Jharkhand</option>
+                                        <option value="KA">Karnataka</option>
+                                        <option value="KL">Kerala</option>
+                                        <option value="LA">Ladakh</option>
+                                        <option value="LD">Lakshadweep</option>
+                                        <option value="MP">Madhya Pradesh</option>
+                                        <option value="MH">Maharashtra</option>
+                                        <option value="MN">Manipur</option>
+                                        <option value="ML">Meghalaya</option>
+                                        <option value="MZ">Mizoram</option>
+                                        <option value="NL">Nagaland</option>
+                                        <option value="OR">Odisha</option>
+                                        <option value="PY">Puducherry</option>
+                                        <option value="PB">Punjab</option>
+                                        <option value="RJ">Rajasthan</option>
+                                        <option value="SK">Sikkim</option>
+                                        <option value="TN">Tamil Nadu</option>
+                                        <option value="TS">Telangana</option>
+                                        <option value="TR">Tripura</option>
+                                        <option value="UP">Uttar Pradesh</option>
+                                        <option value="UK">Uttarakhand</option>
+                                        <option value="WB">West Bengal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pincode">PIN Code *</label>
+                                    <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Payment Method</h3>
+                            <div class="payment-methods" id="paymentMethodsContainer">
+                                <!-- Payment methods will be loaded dynamically -->
+                                <div class="loading-payment-methods">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading payment methods...
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Payment Method</h3>
+                            <div class="payment-methods">
+                                <!-- Payment methods will be added here -->
+                                <p>No payment methods available at the moment.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-content" id="orderSummary">
+                        <!-- Order summary will be loaded dynamically -->
+                    </div>
+                    
+                    <div class="promo-code">
+                        <h4>Promo Code</h4>
+                        <div class="promo-input">
+                            <input type="text" id="promoCode" placeholder="Enter promo code">
+                            <button type="button" onclick="applyPromoCode()">Apply</button>
+                        </div>
+                        <div class="promo-message" id="promoMessage"></div>
+                    </div>
+                    
+                    <div class="order-total">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">₹0</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Shipping:</span>
+                            <span id="shipping">₹0</span>
+                        </div>
+                        <div class="total-row discount-row" id="discountRow" style="display: none;">
+                            <span>Discount:</span>
+                            <span id="discount">-₹0</span>
+                        </div>
+                        <div class="total-row tax-row">
+                            <span>Tax (GST):</span>
+                            <span id="tax">₹0</span>
+                        </div>
+                        <div class="total-row final-total">
+                            <span>Total:</span>
+                            <span id="finalTotal">₹0</span>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary checkout-btn" onclick="proceedToPayment()">
+                        <i class="fas fa-lock"></i>
+                        Proceed to Payment
+                    </button>
+                    
+                    <div class="security-badges">
+                        <div class="badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure Checkout</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-truck"></i>
+                            <span>Free Shipping ₹2000+</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-undo"></i>
+                            <span>30-Day Returns</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Heritage Handlooms</h3>
+                    <p>Preserving traditional Indian craftsmanship through premium handloom textiles. Each piece tells a story of heritage and artisan excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">My Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="shop.html?category=bedsheets">Bed Sheets</a></li>
+                        <li><a href="shop.html?category=curtains">Curtains</a></li>
+                        <li><a href="shop.html?category=rugs">Rugs & Carpets</a></li>
+                        <li><a href="shop.html?category=pillows">Cushion Covers</a></li>
+                        <li><a href="shop.html?category=throws">Sofa Throws</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Handloom Street, Textile District, Mumbai 400001</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-envelope"></i> info@heritagehandlooms.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Heritage Handlooms. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load payment methods from localStorage (added by admin)
+            const paymentMethods = JSON.parse(localStorage.getItem('paymentMethods')) || [];
+            const paymentMethodsContainer = document.getElementById('paymentMethodsContainer');
+            
+            // Default payment methods if none are set by admin
+            const defaultPaymentMethods = [
+                {
+                    id: 'cod',
+                    name: 'Cash on Delivery',
+                    type: 'cod',
+                    icon: 'fas fa-money-bill-wave',
+                    isActive: true
+                },
+                {
+                    id: 'card',
+                    name: 'Credit/Debit Card',
+                    type: 'online',
+                    icon: 'fas fa-credit-card',
+                    isActive: true
+                },
+                {
+                    id: 'netbanking',
+                    name: 'Net Banking',
+                    type: 'online',
+                    icon: 'fas fa-university',
+                    isActive: true
+                }
+            ];
+
+            // Use admin-configured methods or default ones
+            const activePaymentMethods = paymentMethods.length > 0 
+                ? paymentMethods.filter(method => method.isActive !== false)
+                : defaultPaymentMethods;
+
+            // Render payment methods
+            function renderPaymentMethods() {
+                if (activePaymentMethods.length === 0) {
+                    paymentMethodsContainer.innerHTML = `
+                        <div class="no-payment-methods">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <p>No payment methods available. Please check back later.</p>
+                        </div>`;
+                    return;
+                }
+
+                paymentMethodsContainer.innerHTML = `
+                    <div class="payment-options">
+                        ${activePaymentMethods.map(method => `
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="${method.id}" 
+                                    ${method.id === 'cod' ? 'checked' : ''}>
+                                <div class="payment-card">
+                                    <i class="${method.icon || 'fas fa-credit-card'}"></i>
+                                    <span>${method.name}</span>
+                                    ${method.description ? `<small>${method.description}</small>` : ''}
+                                </div>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div class="payment-details" id="paymentDetails">
+                        <!-- Payment method specific details will be loaded here -->
+                    </div>`;
+            }
+
+            // Initialize
+            renderPaymentMethods();
+        });
+    </script>
+</body>
+</html>
